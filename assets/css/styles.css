@@ -1,0 +1,59 @@
+body {
+            font-family: 'Inter', sans-serif;
+            transition: background-color 0.2s ease, color 0.2s ease;
+        }
+        /* Light Theme */
+        html.light body {
+            background-color: #f8fafc;
+            color: #0f172a;
+        }
+        html.light .card-box {
+            background: #ffffff;
+            border: 1px solid #cbd5e1;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        }
+        
+        /* Dark Theme - High Accessibility & Readability */
+        html.dark body {
+            background-color: #090d16;
+            color: #f8fafc;
+        }
+        html.dark .card-box {
+            background: #111827;
+            border: 1px solid #334155;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5);
+            color: #ffffff;
+        }
+        html.dark h1, html.dark h2, html.dark h3, html.dark h4, html.dark h5, html.dark strong {
+            color: #ffffff !important;
+        }
+
+        .card-red-gradient {
+            background: linear-gradient(135deg, #7f1d1d 0%, #b91c1c 50%, #450a0a 100%);
+        }
+
+        @keyframes slideInRight {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        .animate-slide-in {
+            animation: slideInRight 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        /* Pure CSS Ken Burns live-motion effect for all hero images */
+        @keyframes kenBurns {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.12); }
+            100% { transform: scale(1); }
+        }
+        .animate-ken-burns {
+            animation: kenBurns 18s ease-in-out infinite;
+        }
+
+        /* Live motion for card images */
+        .card-image-motion {
+            transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .group:hover .card-image-motion {
+            transform: scale(1.12);
+        }
