@@ -58,7 +58,7 @@ let isLoggedIn = false;
             };
             const partner = activePartnerView ? partners[activePartnerView] : null;
 
-            label.textContent = partner ? 'Partner Experience' : '';
+            label.textContent = partner ? partner.name : '';
             label.classList.toggle('is-visible', Boolean(partner));
             label.setAttribute('aria-hidden', partner ? 'false' : 'true');
 
