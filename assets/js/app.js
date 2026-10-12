@@ -41,6 +41,62 @@ let isLoggedIn = false;
             renderApp();
         });
 
+
+        // Keep the shared shell aligned with the current Aura Platinum or partner context.
+        function syncShellContext() {
+            const label = document.getElementById('nav-experience-label');
+            const footer = document.getElementById('footer-brand-context');
+            const privacy = document.getElementById('footer-privacy-link');
+            const terms = document.getElementById('footer-terms-link');
+            const support = document.getElementById('footer-support-link');
+            if (!label || !footer || !privacy || !terms || !support) return;
+
+            const partners = {
+                aero: { name: 'Aero Luxe Aviation', support: 'Aero Luxe Concierge', detail: 'Flight, lounge and chauffeur benefits are provided through the Aero Luxe Aviation partner experience.' },
+                hotel: { name: 'Grand Hotelier', support: 'Grand Hotelier Concierge', detail: 'Reservation, suite and hospitality benefits are provided through the Grand Hotelier partner experience.' },
+                retail: { name: 'Chronos Vendôme', support: 'Chronos Vendôme Concierge', detail: 'Boutique, appointment and horology benefits are provided through the Chronos Vendôme partner experience.' }
+            };
+            const partner = activePartnerView ? partners[activePartnerView] : null;
+
+            label.textContent = partner ? 'Partner Experience' : '';
+            label.classList.toggle('is-visible', Boolean(partner));
+            label.setAttribute('aria-hidden', partner ? 'false' : 'true');
+
+            if (partner) {
+                footer.innerHTML = '&copy; 2026 Aura Platinum Financial &middot; ' + partner.name + ' Partner Experience.';
+                privacy.textContent = 'Partner Privacy';
+                terms.textContent = 'Benefit Terms';
+                support.textContent = 'Partner Support';
+                privacy.setAttribute('aria-label', partner.name + ' privacy information');
+                terms.setAttribute('aria-label', partner.name + ' benefit terms');
+                support.setAttribute('aria-label', partner.name + ' support');
+            } else {
+                footer.innerHTML = '&copy; 2026 Aura Platinum Financial. All rights reserved.';
+                privacy.textContent = 'Privacy';
+                terms.textContent = 'Terms';
+                support.textContent = 'Support';
+                privacy.setAttribute('aria-label', 'Aura Platinum privacy information');
+                terms.setAttribute('aria-label', 'Aura Platinum terms of service');
+                support.setAttribute('aria-label', 'Aura Platinum support');
+            }
+        }
+
+        function showFooterInfo(type) {
+            const partners = {
+                aero: { name: 'Aero Luxe Aviation', support: 'Aero Luxe Concierge', detail: 'Flight, lounge and chauffeur benefits are provided through the Aero Luxe Aviation partner experience.' },
+                hotel: { name: 'Grand Hotelier', support: 'Grand Hotelier Concierge', detail: 'Reservation, suite and hospitality benefits are provided through the Grand Hotelier partner experience.' },
+                retail: { name: 'Chronos Vendôme', support: 'Chronos Vendôme Concierge', detail: 'Boutique, appointment and horology benefits are provided through the Chronos Vendôme partner experience.' }
+            };
+            const partner = activePartnerView ? partners[activePartnerView] : null;
+            if (type === 'privacy') {
+                showToast(partner ? partner.name + ' Privacy' : 'Aura Platinum Privacy', partner ? partner.detail + ' Aura Platinum member information remains governed by applicable privacy standards.' : 'Aura Platinum applies strict banking confidentiality and member privacy standards.');
+            } else if (type === 'terms') {
+                showToast(partner ? partner.name + ' Benefit Terms' : 'Aura Platinum Terms of Service', partner ? 'Partner-specific eligibility, availability and redemption conditions apply to ' + partner.name + ' benefits.' : 'The World Elite Member Agreement governs Aura Platinum catalog access and benefit redemptions.');
+            } else if (type === 'support') {
+                showToast(partner ? partner.support : 'Aura Platinum Concierge', partner ? 'For assistance with this partner journey, contact ' + partner.support + ' through your Aura Platinum relationship team.' : 'Aura Platinum Concierge is available 24/7 at +1 (800) 555-AURA.');
+            }
+        }
+
         function handleLogoClick() {
             activePartnerView = null;
             isConciergeScreenActive = false;
@@ -54,6 +110,7 @@ let isLoggedIn = false;
         }
 
         function renderApp() {
+            syncShellContext();
             const container = document.getElementById('main-container');
             const navLogoBtn = document.getElementById('nav-logo-btn');
             const navLogoIcon = document.getElementById('nav-logo-icon');
