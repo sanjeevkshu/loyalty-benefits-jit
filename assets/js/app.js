@@ -58,9 +58,9 @@ let isLoggedIn = false;
             };
             const partner = activePartnerView ? partners[activePartnerView] : null;
 
-            label.textContent = partner ? partner.name : '';
-            label.classList.toggle('is-visible', Boolean(partner));
-            label.setAttribute('aria-hidden', partner ? 'false' : 'true');
+            label.textContent = partner ? partner.name : 'Aura Platinum';
+            label.classList.add('is-visible');
+            label.setAttribute('aria-hidden', 'false');
 
             if (partner) {
                 footer.innerHTML = '&copy; 2026 Aura Platinum Financial &middot; ' + partner.name + ' Partner Experience.';
