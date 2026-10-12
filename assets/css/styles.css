@@ -57,3 +57,28 @@ body {
         .group:hover .card-image-motion {
             transform: scale(1.12);
         }
+
+
+/* Responsive partner context: show beside the brand on desktop and landscape phones,
+   but keep portrait mobile navigation icon-first and uncluttered. */
+#nav-experience-label {
+    max-width: min(42vw, 18rem);
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+@media (min-width: 768px) {
+    #nav-experience-label.is-visible {
+        display: inline-flex;
+        align-items: center;
+    }
+}
+@media (orientation: landscape) and (max-height: 500px) and (min-width: 480px) {
+    #nav-experience-label.is-visible {
+        display: inline-flex;
+        align-items: center;
+        font-size: 0.8125rem;
+    }
+}
+@media (max-width: 767px) and (orientation: portrait) {
+    #nav-experience-label { display: none !important; }
+}
